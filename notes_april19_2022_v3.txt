@@ -1,0 +1,141 @@
+
+    1  ls
+    2  pwd
+    3  sudo apt-get update
+    4  sudo apt-get install nodejs				# not necessary? 
+    5  sudo apt install npm
+    6  curl -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh
+    7  sudo bash nodesource_setup.sh
+    8  sudo apt install nodejs
+    9  sudo apt install nodejs build-essential
+   10  node --version
+   11  mkdir ~/graphbook
+   12  cd ~/graphbook
+   13  npm init
+   14  
+   15  mkdir public
+   16  cd public
+   17  ls
+   18  touch index.html
+   19  v index.html
+   20  vi index.html
+   21  cat index.htm
+   22  cat index.html
+   23  npm install --save react react-dom
+   24  npm install --save-dev @babel/core babel-loader @babel/preset-env @babel/preset-react clean-webpack-plugin css-loader file-loader html-webpack-plugin style-loader url-loader webpack webpack-cli webpack-dev-server
+   25  cd ..
+   26  vi webpack.client.config.js
+   27  mkdir -p src/client
+   28  cd src/client
+   29  touch index.js
+   30  vi index.js
+   31  vi App.js
+   32  cd ..
+   33  ls
+   34  vi package.json
+   35  npm run client
+   36  npm install --save-dev @babel/preset-react
+   37  vi .babelrc
+   38  npm run client
+   39  vi .babelrc
+   40  npm run client
+   41  vi .babelrc
+   42  npm run client
+   43  ls
+   44  vi webpack.client.config.js
+   45  npm run client
+   46  vi webpack.client.config.js
+   47  vi .env
+   48  npm run client
+   49  cd ..
+   50  ls
+   51  cd ..
+   52  cd etc
+   53  cd ..
+   54  cd etc
+   55  ls
+   56  cd hosts
+   57  ls
+   58  cd hosts
+   59  cd ~ubuntu
+   60  ls
+   61  pwd
+   62  vi .env
+   63  history
+
+
+
+
+
+# note : i need .env
+# note : i need .bablerc
+
+
+ubuntu@ip-172-31-3-132:~/graphbook$ cat webpack.client.config.js
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const buildDirectory = 'dist';
+const outputDirectory = buildDirectory + '/client';
+
+module.exports = {
+    mode: 'development',
+    entry: './src/client/index.js',
+    output: {
+        path: path.join(__dirname, outputDirectory),
+        filename: 'bundle.js'
+    },
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader'
+                }
+            },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader']
+            }
+        ]
+    },
+    devServer: {
+            allowedHosts: [ 'ec2-54-202-111-231.us-west-2.compute.amazonaws.com'],
+            port: 3000,
+        open: true
+    },
+
+
+
+
+
+
+
+
+ubuntu@ip-172-31-3-132:~/graphbook$ npm run client
+
+> graphbook@1.0.0 client /home/ubuntu/graphbook
+> webpack serve --devtool inline-source-map --hot --config webpack.client.config.js
+
+<i> [webpack-dev-server] Project is running at:
+<i> [webpack-dev-server] Loopback: http://localhost:3000/
+<i> [webpack-dev-server] On Your Network (IPv4): http://172.31.3.132:3000/
+<i> [webpack-dev-server] Content not from webpack is served from '/home/ubuntu/graphbook/public' directory
+asset bundle.js 3.29 MiB [emitted] (name: main)
+asset index.html 361 bytes [emitted]
+runtime modules 27.4 KiB 13 modules
+modules by path ./node_modules/ 1.22 MiB
+  modules by path ./node_modules/webpack-dev-server/client/ 52.4 KiB 12 modules
+  modules by path ./node_modules/webpack/hot/*.js 4.3 KiB 4 modules
+  modules by path ./node_modules/html-entities/lib/*.js 81.3 KiB 4 modules
+  modules by path ./node_modules/react/ 85.7 KiB 2 modules
+  modules by path ./node_modules/react-dom/ 992 KiB 2 modules
+  modules by path ./node_modules/scheduler/ 17.3 KiB 2 modules
+  ./node_modules/ansi-html-community/index.js 4.16 KiB [built] [code generated]
+  ./node_modules/events/events.js 14.5 KiB [built] [code generated]
+modules by path ./src/client/*.js 331 bytes
+  ./src/client/index.js 181 bytes [built] [code generated]
+  ./src/client/App.js 150 bytes [built] [code generated]
+webpack 5.72.0 compiled successfully in 2660 ms
+

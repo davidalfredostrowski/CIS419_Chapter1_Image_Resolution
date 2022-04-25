@@ -1,0 +1,120 @@
+Image not loading: 
+
+https://stackoverflow.com/questions/45848055/image-you-may-need-an-appropriate-loader-to-handle-this-file-type
+
+
+
+
+
+
+https://stackoverflow.com/questions/51396948/load-images-in-react-using-webpack-loader?noredirect=1&lq=1
+
+Have you tried this webpack configuration
+
+{
+         test: /\.(png|svg|jpg|gif)$/,
+        use: [
+           'file-loader'
+         ]
+       }
+
+
+
+
+
+
+change 1: 
+npm install --save file-loader url-loader
+
+change 2:
+$ npm install --save style-loader css-loader
+
+
+change 3: 
+
+update to webpack.client.config.js
+
+module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader'
+                }
+            },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader']
+            }
+        ,{
+      test: /\.(jpe?g|png|gif|woff|woff2|eot|ttf|svg)(\?[a-z0-9=.]+)?$/,
+      loader: 'file-loader' }
+        ]
+    }
+    ,
+
+
+
+
+
+
+change 4: (App.js)
+
+
+import React, { useState } from 'react';
+import '../../assets/css/style.css';
+import logo from './avatar1.png'
+
+const initialPosts = [
+    {
+        id: 2,
+        text: 'Lorem ipsum',
+        user: {
+            avatar: '/uploads/avatar1.png',
+            username: 'Test User'
+        }
+    },
+    {
+        id: 1,
+        text: 'Lorem ipsum',
+        user: {
+            avatar: '/uploads/avatar2.png',
+            username: 'Test User 2'
+        }
+    }
+];
+
+
+
+const App = () => {
+
+    const [posts, setPosts] = useState(initialPosts);
+
+
+
+
+
+        return (
+
+
+        <div className="container">
+            <div className="feed">
+                {posts.map((post, i) =>
+                    <div key={post.id} className="post">
+                        <div className="header">
+                            <img src={logo} />
+                            <h2>{post.user.username}</h2>
+                        </div>
+                        <p className="content">
+                            {post.text}
+                        </p>
+                    </div>
+                )}
+            </div>
+        </div>
+    )
+}
+export default App
+
+
